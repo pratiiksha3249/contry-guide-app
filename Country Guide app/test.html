@@ -1,0 +1,187 @@
+<html>
+
+</html>
+
+<head>
+    <style>
+        #parent-div {
+            background-color: lightblue;
+            height: 90%;
+            width: 40%;
+            display: flex;
+            margin-left: 185px;
+            margin-top: 30px;
+            border-radius: 3px;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        #search-btn-div {
+            margin-top: 20px;
+
+        }
+
+        input {
+            padding: 10px;
+        }
+
+        input:focus {
+            background-color: lightblue;
+            border: none;
+            outline: none;
+        }
+
+        input {
+            outline: none;
+            border: none;
+            background-color: lightblue;
+            font-size: x-small;
+            margin-left: 14px;
+        }
+
+        #line {
+            margin-top: -25px;
+            margin-left: 24px;
+            font-weight: bolder;
+        }
+
+        #btn {
+            margin-left: 190px;
+            margin-top: -34px;
+            outline: none;
+            border-radius: 10px;
+            border-width: 1px;
+            font-size: small;
+        }
+
+        #btn:focus {
+            border-color: crimson;
+        }
+
+        #img-div {
+            width: 38%;
+            height: 25%;
+            /* background-color: brown; */
+            margin-top: 58px;
+            margin-left: -172px;
+        }
+
+        #Contry-name {
+            margin-top: 125px;
+            margin-left: -90px;
+            font-size: small;
+            font-weight: 600;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        #info {
+            margin-top: 150px;
+            margin-left: -120px;
+            font-size: small;
+            font-weight: bold;
+
+        }
+
+        .flag-img {
+            /* display:block; */
+            width: 40%;
+            min-width: 7.5em;
+            margin-left: -18px;
+
+        }
+
+        #p1 {
+            margin-left: 63px;
+            margin-top: -26px;
+            font-size: 10px;
+        }
+
+        #p2 {
+            margin-left: 79px;
+            margin-top: -13px;
+            font-size: 10px;
+        }
+
+        #p3 {
+            margin-left: 79px;
+            margin-top: -12px;
+            font-size: 10px;
+        }
+
+        #p4 {
+            margin-left: 79px;
+            margin-top: -12px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent-div">
+        <div id="search-btn-div">
+            <input type="text" id="input-val" placeholder="Enter Contry">
+            <p id="line">___________________</p>
+            <button id="btn">Search</button>
+        </div>
+        <div id="img-div" class="flag-img">
+
+        </div>
+        <div id="Contry-name">
+            <p id="c-name-para">INDIA</p>
+        </div>
+        <div id="info">
+            <p id="info-para">
+
+                <font>Capital </font>
+            <p id="p1"></p>
+            <font>Continents </font>
+            <p id="p2"></p>
+            <font>Population </font>
+            <p id="p3"></p>
+            <font>languages</font>
+            <p id="p4"></p>
+
+            </p>
+
+
+        </div>
+    </div>
+</body>
+<script>
+
+        let btn = document.getElementById("btn");
+
+        let getdata = async () => {
+            console.log("inside fun");
+            let inputval = document.getElementById("input-val");
+
+        let img_div = document.getElementById("img-div");
+        let cname = document.getElementById("c-name-para");
+
+        let capitalname = document.getElementById("p1");
+        let continent = document.getElementById("p2");
+        let population = document.getElementById("p3");
+        let lang = document.getElementById("p4");
+        let countyname = inputval.value || "india";
+        let finalURL = `https://restcountries.com/v3.1/name/${countyname}?fullText=true`;
+            let res = await fetch(finalURL);
+            console.log(countyname);
+            let data = await res.json()
+                .then(item => {
+                      console.log(item);           
+                    img_div.innerHTML = `<img src="${item[0].flags.svg}"class="flag-img">`;
+                    cname.innerHTML = item[0].name.common;
+                    capitalname.innerHTML = item[0].capital[0];
+                    continent.innerHTML = item[0].continents[0];
+                });
+
+
+        }
+
+    btn.addEventListener("click", getdata);
+
+</script>
+
+</html>
